@@ -2,7 +2,7 @@
 
 Este es el repositario del grupo "Equipo Dinamita", cuyos integrantes son:
 
-* Leonardo Espinoza
+* Leandro Espinoza - 201973563-2
 * Benjamín Soto - 201973522-5
 * Maximiliano Tapia - 202073552-2
 * **Tutor**: Paula Maldonado
