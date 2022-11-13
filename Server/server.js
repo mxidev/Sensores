@@ -1,48 +1,79 @@
-/* Creacion del servidor para levantar una API con Express */
 
-// Se llama a express y axios
+const axios = require('axios');
 const express = require('express');
-
-// Creamos la aplicacion
 const app = express();
 
 
-// Conexion a DB
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/Project')
-    .then(() => console.log('Conectado a BBDD -> Project'))
-// Conexion a DB
+var urlData = 'http://18.214.103.65:8080/api/auth/login'
 
+const data = JSON.stringify({
+  'username': 'alumnos@alumnos.org',
+  'password': 'm7a/s99'
+})
 
-// Modelo del sensor (la forma en que se van a mostrar los datos recogidos)
-const Sensor = require('./models/sensor.model')
-// LLamado a la extraccion de los datos
-const getter = require('./http')
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  data : data
+}
 
 
 /* Routes */
-app.get('/api/data', (req,res) =>
-    getter
-        .then(data => res.json(data))
-        .catch(err => console.log(err))
-)
-app.get('/api/sensors', (req,res) => 
-    Sensor
-        .find()
-        .then(allSensors => res.json(allSensors))
-)
-app.get('/api/details/:sensor_id', (req,res) => {
+app.get('/api/radon', (req, res) => { // Con esta ruta mostramos datos de Radon
+    axios.post(urlData, data, config)
+      .then(response => { // Este res es distinto al res del parametro del app.get()
+    //console.log("Token obtenido:",res.data.token)
 
-    const { sensor_id } = req.params
+      var token = response.data.token
+      const sensorData = {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Authorization': `Bearer ${token}`
+          }
+      }
 
-    Sensor
-        .findById(sensor_id)
-        .then(sensor => res.json(sensor))
+      axios.get('http://18.214.103.65:8080/api/plugins/telemetry/DEVICE/723d0580-452d-11ed-b4b1-1bcb8f5daa77/values/timeseries?keys=Fecha,Radon&startTs=1265046352083&endTs=1665029708303',
+      sensorData)
+        .then(response2 => {
+            console.log("Submiting data ...")
+            res.send(response2.data)
+        })
+        .catch(error => console.log("Error Sensor Radon:",error))
+        })
+    .catch(err => console.log("Error en POST:",err))
+})
+app.get('/api/radiometro', (req, res) => { // Con esta ruta mostramos datos de Radiometro
+    axios.post(urlData, data, config)
+      .then(response => {
+
+      var token = response.data.token
+      const sensorData = {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Authorization': `Bearer ${token}`
+          }
+      }
+
+      axios.get('http://18.214.103.65:8080/api/plugins/telemetry/DEVICE/efdd9590-4550-11ed-b4b1-1bcb8f5daa77/values/timeseries?keys=Fecha,Hora,Albedo&startTs=1265046352083&endTs=1665044947549',
+      sensorData)
+        .then(response2 => {
+            console.log("Submiting data ...")
+            res.send(response2.data)
+        })
+        .catch(error => console.log("Error Sensor Radon:",error))
+        })
+    .catch(err => console.log("Error en POST:",err))
+})
+// Y asi con los demas sensores ...
+
+app.get('/api/home', (req, res) => { // Esta es una ruta de prueba no mas
+    res.send("Home!")
 })
 /* Routes */
 
 
 // Puerto reservado para el servidor
 app.listen(3000, () => console.log('Servidor arriba!'));
-
-// Arranque: sudo mongod --dbpath /var/lib/mongodb
+  
