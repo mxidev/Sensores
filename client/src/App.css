@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  padding: 50px 50px;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main a{
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 30px;
+  padding: 20px;
+  background-color: cornflowerblue;
+  border-radius: 50px;
+}
+
+.main a:hover{
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
