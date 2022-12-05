@@ -1,7 +1,6 @@
 body {
   font-family: sans-serif;
   margin: 0px;
-  background-color: lightgrey;
 }
 
 .container {
@@ -32,6 +31,11 @@ body {
   background-color: deepskyblue;
   cursor: pointer;
 }
+
+.maingraph{
+  padding: 0px 50px;
+}
+
 
 .navigation {
   display: flex;
