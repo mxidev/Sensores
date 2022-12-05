@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 const SensorPage = () => {
     return (
         <main>
-            <h1> MERN Stack APP - A&DS || Equipo 36: Dinamita </h1>
-            <hr />
+            <nav>
+                <div className="navigation">
+                    <h2> Proyecto A&DSW </h2>
+                    <Link to="/"> Acerca de </Link>
+                </div>
+            </nav>
             <div className='main'>
                 <Link to="/api/radon">Radon </Link> 
                 <Link to="/api/multiparametro">Multiparametro </Link> 

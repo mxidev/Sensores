@@ -1,29 +1,48 @@
 body {
   font-family: sans-serif;
+  margin: 0px;
+  background-color: lightgrey;
 }
 
 .container {
-  padding: 50px 50px;
+  padding: 0px 0px 70px;
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
 }
 
 .main a{
   color: black;
   font-weight: bold;
   text-decoration: none;
-  margin: 30px;
+  text-align: center;
+  margin-top: 60px;
+  margin-left: 60px;
+  margin-right: 60px;
   padding: 20px;
   background-color: cornflowerblue;
-  border-radius: 50px;
 }
 
 .main a:hover{
   color: white;
-  background-color: black;
+  background-color: deepskyblue;
   cursor: pointer;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: dodgerblue;
+  margin: 0px;
+  padding: 0px 50px;
+}
+
+.navigation a {
+  text-decoration: none;
+  font-weight: bold;
 }
