@@ -11,14 +11,16 @@ import {
     Legend,
     Filler,
     LineElement,
+    BarElement
   } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
@@ -56,6 +58,7 @@ const Radiometro = () => {
                 label: "Albedo Data",
                 data: albedo.map((data) => data.value),
                 borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'dodgerblue',
                 tension: 0.4,
                 pointRadius: 3
             }
@@ -82,7 +85,7 @@ const Radiometro = () => {
         <main className='maingraph'>
             <h2>Sensor: Radiometro</h2>
             <hr />
-            <Line data={data} options={options} />
+            <Bar data={data} options={options} />
             <Link to="/">Volver</Link>
         </main>
     )
